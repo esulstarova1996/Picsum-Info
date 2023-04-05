@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/photoGraph"
+    app:startDestination="@id/photo_list_fragment">
+
+    <fragment
+        android:id="@+id/photo_list_fragment"
+        android:name="com.impaladigital.ui_photolist.ui.PhotoListFragment"
+        android:label="Photo list"
+        tools:layout="@layout/fragment_photo_list"/>
+
+    <fragment
+        android:id="@+id/photo_detail_fragment"
+        android:name="com.impaladigital.ui_photodetails.ui.PhotoDetailFragment"
+        android:label="Photo detail"
+        tools:layout="@layout/fragment_photo_detail">
+
+        <argument
+            android:name="photoId"
+            android:defaultValue="-1"
+            app:argType="string" />
+
+        <deepLink app:uri="Picsum://PhotoDetailFragment/{photoId}" />
+
+    </fragment>
+
+</navigation>

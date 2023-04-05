@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ui-photoDetails</string>
+    <string name="retry">Retry</string>
+    <string name="cancel">Cancel</string>
+</resources>

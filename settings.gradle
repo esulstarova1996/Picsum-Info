@@ -1,0 +1,16 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "Picsum"
+
+include ':app'
+include ':photo'
+include ':photo:ui-photoList'
+include ':photo:photo-domain'
+include ':photo:photo-datasource'
+include ':photo:photo-interactors'
+include ':photo:ui-photoDetails'

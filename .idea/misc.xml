@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/EndriSulstarova/Documents/POSAndroid/Picsum/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3735" />
+        <entry key="..\:/Users/EndriSulstarova/Documents/POSAndroid/Picsum/app/src/main/res/layout/activity_main.xml" value="0.37447916666666664" />
+        <entry key="..\:/Users/EndriSulstarova/Documents/POSAndroid/Picsum/photo/ui-photoDetail/src/main/res/layout/fragment_photo_detail.xml" value="0.37447916666666664" />
+        <entry key="..\:/Users/EndriSulstarova/Documents/POSAndroid/Picsum/photo/ui-photoDetail/src/main/res/layout/photo_detail_fragment.xml" value="0.1890625" />
+        <entry key="..\:/Users/EndriSulstarova/Documents/POSAndroid/Picsum/photo/ui-photoDetails/src/main/res/drawable/ic_launcher_background.xml" value="0.233" />
+        <entry key="..\:/Users/EndriSulstarova/Documents/POSAndroid/Picsum/photo/ui-photoDetails/src/main/res/layout/fragment_photo_detail.xml" value="0.33" />
+        <entry key="..\:/Users/EndriSulstarova/Documents/POSAndroid/Picsum/photo/ui-photoList/src/main/res/drawable/content_item_rounded.xml" value="0.3255" />
+        <entry key="..\:/Users/EndriSulstarova/Documents/POSAndroid/Picsum/photo/ui-photoList/src/main/res/layout/fragment_photo_list.xml" value="0.3675925925925926" />
+        <entry key="..\:/Users/EndriSulstarova/Documents/POSAndroid/Picsum/photo/ui-photoList/src/main/res/layout/image_data_item.xml" value="0.37447916666666664" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
