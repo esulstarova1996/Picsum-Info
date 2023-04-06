@@ -11,10 +11,9 @@ dependencies {
     "implementation"(project(Modules.photoDomain))
     "implementation"(project(Modules.photoDatasource))
 
-    "implementation"(Kotlinx.coroutinesCore)
 
-    "testImplementation"(project(Modules.photoDataSourceTest))
-    "testImplementation"(Junit.junit4)
-    "testImplementation"(Ktor.ktorClientMock)
-    "testImplementation"(Ktor.clientSerialization)
+    "implementation"(Ktor.core)
+    "implementation"(Ktor.ktorClientMock)
+    "implementation"(Ktor.contentNegotiator)
+    "implementation"(Ktor.ktorKotlinxSerialization)
 }

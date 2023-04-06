@@ -10,4 +10,6 @@ object Ktor {
 
     const val ktorClientLogging = "io.ktor:ktor-client-logging:$ktorVersion"
 
+    const val ktorClientMock = "io.ktor:ktor-client-mock:$ktorVersion"
+    const val clientSerialization = "io.ktor:ktor-client-serialization:$ktorVersion"
 }

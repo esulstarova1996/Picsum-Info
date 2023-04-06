@@ -7,4 +7,5 @@ object Modules {
     const val photoDomain = ":photo:photo-domain"
     const val photoDatasource = ":photo:photo-datasource"
     const val photoInteractors = ":photo:photo-interactors"
+    const val photoDataSourceTest = ":photo:photo-datasource-test"
 }

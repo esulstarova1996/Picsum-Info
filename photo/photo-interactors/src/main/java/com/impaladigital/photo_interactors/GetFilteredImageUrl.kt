@@ -8,12 +8,12 @@ class GetFilteredImageUrl {
         photoId: String,
         isGrayScale: Boolean,
         blurStrength: Int,
-        width: Int?,
-        height: Int?,
+        width: Int? = null,
+        height: Int? = null,
     ): String {
 
         var modifiedPhotoUrl =
-            EndPoints.PICSUM_PHOTO + "/$photoId/${width ?: DEFAULT_WIDTH}/${height ?: DEFAULT_HEIGHT}"
+            EndPoints.PICSUM_PHOTO + "$photoId/${width ?: DEFAULT_WIDTH}/${height ?: DEFAULT_HEIGHT}"
 
         if (isGrayScale) {
             modifiedPhotoUrl += "?$KEY_GREYSCALE"
