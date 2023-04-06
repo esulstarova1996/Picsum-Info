@@ -97,7 +97,11 @@ class PhotoDetailViewModel @Inject constructor(
     private fun updateImageUrl(photoId: String, isGrayScaleApplied: Boolean, blurStrength: Int) {
 
         val newDetails = uiState.value.photoDetail?.copy(
-            download_url = getFilteredImageUrl(photoId, isGrayScaleApplied, blurStrength)
+            download_url = getFilteredImageUrl(photoId,
+                isGrayScaleApplied,
+                blurStrength,
+                uiState.value.photoDetail?.width,
+                uiState.value.photoDetail?.height)
         )
 
         _uiState.value = uiState.value.copy(

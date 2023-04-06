@@ -4,9 +4,16 @@ import com.impaladigital.photo_datasource.network.EndPoints
 
 class GetFilteredImageUrl {
 
-    operator fun invoke(photoId: String, isGrayScale: Boolean, blurStrength: Int): String {
+    operator fun invoke(
+        photoId: String,
+        isGrayScale: Boolean,
+        blurStrength: Int,
+        width: Int?,
+        height: Int?,
+    ): String {
 
-        var modifiedPhotoUrl = EndPoints.PICSUM_PHOTO + "/$photoId/$DEFAULT_WIDTH/$DEFAULT_HEIGHT"
+        var modifiedPhotoUrl =
+            EndPoints.PICSUM_PHOTO + "/$photoId/${width ?: DEFAULT_WIDTH}/${height ?: DEFAULT_HEIGHT}"
 
         if (isGrayScale) {
             modifiedPhotoUrl += "?$KEY_GREYSCALE"
