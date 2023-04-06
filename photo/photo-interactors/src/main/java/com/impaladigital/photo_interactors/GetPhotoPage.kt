@@ -19,30 +19,48 @@ class GetPhotoPage(
         try {
             emit(DataState.Loading(ProgressBarState.Loading))
 
-            delay(3000)
+            delay(1000)
 
             val photoDataList: List<PhotoData> = try {
                 photoService.getPhotoList(pageNumber = pageNumb, pageLimit = DEFAULT_LIMIT)
             } catch (e: Exception) {
                 e.printStackTrace()
-                emit(DataState.Response(
-                    uiComponent = UiComponent.Dialog(
-                        title = "Network error",
-                        description = e.message ?: "Unknown error"
-                    )
-                ))
+
+                if (pageNumb == 1) {
+                    emit(DataState.Response(
+                        uiComponent = UiComponent.Dialog(
+                            title = "Network error",
+                            description = e.message ?: "Unknown error"
+                        )
+                    ))
+                } else {
+                    emit(DataState.Response(
+                        uiComponent = UiComponent.Toast(
+                            message = "Network error",
+                        )
+                    ))
+                }
+
                 listOf()
             }
 
             emit(DataState.Data(photoDataList))
 
         } catch (e: Exception) {
-            emit(DataState.Response(
-                uiComponent = UiComponent.Dialog(
-                    title = "Error",
-                    description = e.message ?: "Unknown error"
-                )
-            ))
+            if (pageNumb == 1) {
+                emit(DataState.Response(
+                    uiComponent = UiComponent.Dialog(
+                        title = "Error",
+                        description = e.message ?: "Unknown error"
+                    )
+                ))
+            } else {
+                emit(DataState.Response(
+                    uiComponent = UiComponent.Toast(
+                        message = "Error getting list",
+                    )
+                ))
+            }
         } finally {
             emit(DataState.Loading(ProgressBarState.Idle))
         }

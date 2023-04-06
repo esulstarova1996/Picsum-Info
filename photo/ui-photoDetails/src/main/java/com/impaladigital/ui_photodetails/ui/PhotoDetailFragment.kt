@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -66,6 +68,11 @@ class PhotoDetailFragment : Fragment(R.layout.fragment_photo_detail) {
 
             }
         })
+
+        binding.retryBtn.setOnClickListener {
+            photoDetailViewModel.onTriggerEvent(PhotoDetailEvent.GetPhotoDetails(
+                photoDetailViewModel.photoId ?: "-1"))
+        }
     }
 
 
@@ -76,20 +83,24 @@ class PhotoDetailFragment : Fragment(R.layout.fragment_photo_detail) {
 
                     with(state) {
 
-                        if (this.progressBarState == ProgressBarState.Loading)
-                            View.VISIBLE
-                        else
-                            View.GONE
+                        binding.detailPb.isVisible =
+                            this.progressBarState == ProgressBarState.Loading
 
-                        this.photoUrl.takeIf { it.isNotEmpty() }?.run {
+                        binding.detailGr.isVisible =
+                            (this.progressBarState == ProgressBarState.Idle && this.photoDetail != null)
+
+                        binding.errorDataGroup.isVisible =
+                            (this.progressBarState == ProgressBarState.Idle && this.photoDetail == null)
+
+                        this.photoDetail?.download_url?.takeIf { it.isNotEmpty() }?.run {
                             binding.detailIv.load(this) {
                                 placeholder(R.drawable.loading)
                                 error(R.drawable.error_image)
                             }
                         }
 
-                        this.author.takeIf { it.isNotEmpty() }?.run {
-                            binding.authorTv.text = this
+                        this.photoDetail?.author?.takeIf { it.isNotEmpty() }?.run {
+                            binding.authorTv.text = "Photo by $this"
                         }
 
                     }
@@ -99,6 +110,7 @@ class PhotoDetailFragment : Fragment(R.layout.fragment_photo_detail) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+
                 photoDetailViewModel.messageChannel.collect { component ->
                     if (component is UiComponent.Dialog) {
                         MaterialAlertDialogBuilder(requireContext())
@@ -109,6 +121,9 @@ class PhotoDetailFragment : Fragment(R.layout.fragment_photo_detail) {
                                     photoDetailViewModel.photoId ?: "-1"))
                             }
                             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+                            .show()
+                    } else if (component is UiComponent.Toast) {
+                        Toast.makeText(requireContext(), component.message, Toast.LENGTH_SHORT)
                             .show()
                     }
                 }

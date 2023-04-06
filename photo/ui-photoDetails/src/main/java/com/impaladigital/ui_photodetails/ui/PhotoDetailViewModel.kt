@@ -31,7 +31,7 @@ class PhotoDetailViewModel @Inject constructor(
 
     init {
         photoId.takeIf {
-            it != null && it != "-1"
+            it != null
         }?.run {
             onTriggerEvent(PhotoDetailEvent.GetPhotoDetails(this))
         }
@@ -59,8 +59,7 @@ class PhotoDetailViewModel @Inject constructor(
                 is DataState.Data -> {
                     if (dataState.data != null) {
                         uiState.value.copy(
-                            author = dataState.data!!.author,
-                            photoUrl = dataState.data!!.download_url
+                            photoDetail = dataState.data
                         ).also {
                             _uiState.value = it
                         }
@@ -74,6 +73,13 @@ class PhotoDetailViewModel @Inject constructor(
                     }
                 }
                 is DataState.Response -> {
+
+                    uiState.value.copy(
+                        photoDetail = null
+                    ).also {
+                        _uiState.value = it
+                    }
+
                     if (dataState.uiComponent is UiComponent.None) {
                         Log.i("getPhotoDetail:",
                             " ${(dataState.uiComponent as UiComponent.None).message}")
@@ -89,11 +95,14 @@ class PhotoDetailViewModel @Inject constructor(
     }
 
     private fun updateImageUrl(photoId: String, isGrayScaleApplied: Boolean, blurStrength: Int) {
-        _uiState.value = uiState.value.copy(
-            photoUrl = getFilteredImageUrl(photoId, isGrayScaleApplied, blurStrength)
+
+        val newDetails = uiState.value.photoDetail?.copy(
+            download_url = getFilteredImageUrl(photoId, isGrayScaleApplied, blurStrength)
         )
 
-        Log.i("NEW_URL", uiState.value.photoUrl)
+        _uiState.value = uiState.value.copy(
+            photoDetail = newDetails
+        )
     }
 
 }

@@ -18,21 +18,31 @@ class GetPhotoDetail(
 
             emit(DataState.Loading(ProgressBarState.Loading))
 
-            val photoData: PhotoData? = try {
-                photoService.getPhotoData(photoId)
-            } catch (e: Exception) {
-                e.printStackTrace()
+            if (photoId != "-1") {
+
+                val photoData: PhotoData? = try {
+                    photoService.getPhotoData(photoId)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    emit(DataState.Response(
+                        uiComponent = UiComponent.Dialog(
+                            title = "Network error",
+                            description = e.message ?: "Unknown error"
+                        )
+                    ))
+
+                    null
+                }
+
+                emit(DataState.Data(photoData))
+            } else {
                 emit(DataState.Response(
                     uiComponent = UiComponent.Dialog(
-                        title = "Network error",
-                        description = e.message ?: "Unknown error"
+                        title = "Photo",
+                        description = "No data found for photo with id: $photoId"
                     )
                 ))
-
-                null
             }
-
-            emit(DataState.Data(photoData))
 
         } catch (e: Exception) {
             emit(DataState.Response(

@@ -44,12 +44,16 @@ class PhotoListViewModel @Inject constructor(
             nextPageSyncJob = getPhotoPage(pageNumber).onEach { dataState ->
                 when (dataState) {
                     is DataState.Data -> {
-                        uiState.value.copy(
-                            photos = uiState.value.photos + (dataState.data as List<PhotoData>),
-                            currentPageNo = pageNumber + 1
-                        ).also {
-                            _uiState.value = it
+
+                        if (dataState.data!!.isNotEmpty()) {
+                            uiState.value.copy(
+                                photos = uiState.value.photos + (dataState.data as List<PhotoData>),
+                                currentPageNo = pageNumber + 1
+                            ).also {
+                                _uiState.value = it
+                            }
                         }
+
                     }
                     is DataState.Loading -> {
                         uiState.value.copy(

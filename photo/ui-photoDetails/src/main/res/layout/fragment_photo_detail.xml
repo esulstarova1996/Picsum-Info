@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/detail_gr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="detail_iv, author_tv, grayscale_toggle_btn, seekBar, blur_txt" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/detail_iv"
         android:layout_width="match_parent"
@@ -34,23 +41,24 @@
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/grayscale_toggle_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
+        android:padding="5dp"
         android:layout_marginBottom="10dp"
         android:text="Grayscale"
-        app:thumbTextPadding="50dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/blur_txt"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:thumbTextPadding="50dp" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/blur_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
+        android:gravity="center_horizontal"
         android:padding="5dp"
-        android:text="Blur strength"
+        android:text="Blur level"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
@@ -70,5 +78,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/error_data_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="centered_msg_tv, retry_btn" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/centered_msg_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/unable_to_get_details"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/retry_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:text="@string/retry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/centered_msg_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ui-photoList</string>
+    <string name="unable_to_get_list">Unable to get the list\nClick Retry button below to get the image list</string>
+    <string name="retry">Retry</string>
 </resources>

@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -71,6 +73,8 @@ class PhotoListFragment : Fragment(R.layout.fragment_photo_list) {
 
             setHasFixedSize(true)
         }
+
+        binding.retryBtn.setOnClickListener { photoListViewModel.onTriggerEvent(PhotoListEvents.GetPhotoNextPage) }
     }
 
     private fun observeUiEvents() {
@@ -80,11 +84,10 @@ class PhotoListFragment : Fragment(R.layout.fragment_photo_list) {
 
                     with(state) {
 
-                        binding.syncPb.visibility =
-                            if (this.progressBarState == ProgressBarState.Loading)
-                                View.VISIBLE
-                            else
-                                View.GONE
+                        binding.syncPb.isVisible = this.progressBarState == ProgressBarState.Loading
+
+                        binding.errorDataGroup.isVisible =
+                            this.progressBarState == ProgressBarState.Idle && state.photos.isNullOrEmpty()
 
                         state.photos.takeUnless {
                             it.isNullOrEmpty()
@@ -99,6 +102,7 @@ class PhotoListFragment : Fragment(R.layout.fragment_photo_list) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 photoListViewModel.messageChannel.collect { component ->
+
                     if (component is UiComponent.Dialog) {
                         MaterialAlertDialogBuilder(requireContext())
                             .setTitle(component.title)
@@ -108,7 +112,12 @@ class PhotoListFragment : Fragment(R.layout.fragment_photo_list) {
                             }
                             .setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
                             .show()
+
+                    } else if (component is UiComponent.Toast) {
+                        Toast.makeText(requireContext(), component.message, Toast.LENGTH_SHORT)
+                            .show()
                     }
+
                 }
             }
         }
