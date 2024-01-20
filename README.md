@@ -1,6 +1,6 @@
 # Description
 
-Multi-module test app that gets data from Picsum Photo api.
+Multi-module app that gets data from Picsum Photo api.
 
 Containins 2 main view:
    
